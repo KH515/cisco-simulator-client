@@ -1924,19 +1924,9 @@ const Topology = ({onSelectDevice,selectedDeviceId,devices,setDevices,links,setL
         }}
         onTouchEnd={()=>setDragging(null)}
         onClick={()=>{if(tool==="select"){setSelected(null);onSelectDevice&&onSelectDevice(null);}setOpenDropdown(null);}}>
-onTouchMove={e=>{
-  if(dragging) return;
-  if(panStart&&e.touches.length===1){
-    const touch=e.touches[0];
-    const dx=touch.clientX-panStart.x;
-    const dy=touch.clientY-panStart.y;
-    if(canvasRef.current){
-      canvasRef.current.scrollLeft=panStart.scrollLeft-dx;
-      canvasRef.current.scrollTop=panStart.scrollTop-dy;
-    }
-  }
-}}
-onTouchEnd={()=>setPanStart(null)}
+
+    
+
         <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}>
           {links.map(link=>{
             const from=devices.find(d=>d.id===link.from);
