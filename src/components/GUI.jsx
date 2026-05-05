@@ -1958,7 +1958,7 @@ const Topology = ({onSelectDevice,selectedDeviceId,devices,setDevices,links,setL
                 <DevIcon type={dev.type} size={28}/>
               </div>
               <div style={{textAlign:"center",fontSize:10,fontWeight:700,color:"#374151",marginTop:4,whiteSpace:"nowrap"}}>{dev.name}</div>
-              <div style={{textAlign:"center",fontSize:9,color:"#9ca3af",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis",maxWidth:80}}>{dev.model}</div>
+              <div style={{textAlign:"center",fontSize:9,color:"#9ca3af",whiteSpace:"nowrap",overflow:"scroll",textOverflow:"ellipsis",maxWidth:80}}>{dev.model}</div>
               {isSel&&tool==="select"&&(
                 <div style={{display:"flex",justifyContent:"center",gap:4,marginTop:4}}>
                   <button onClick={e=>{e.stopPropagation();onConfigDevice&&onConfigDevice(dev);}} style={{background:info.color,border:"none",color:"#fff",fontSize:9,padding:"2px 6px",borderRadius:4,cursor:"pointer",fontWeight:700}}>Config</button>
