@@ -1913,7 +1913,15 @@ const Topology = ({onSelectDevice,selectedDeviceId,devices,setDevices,links,setL
       <div style={{flex:1,position:"relative",background:"#f1f5f9",backgroundImage:"radial-gradient(#cbd5e1 1px, transparent 1px)",backgroundSize:"24px 24px",cursor:tool==="link"?"crosshair":tool==="delete"?"not-allowed":"default",overflow:"hidden"}}
         ref={canvasRef}
         onMouseMove={handleMouseMove}
-        onMouseUp={()=>setDragging(null)}
+        onMouseMove={handleMouseMove} onMouseUp={()=>setDragging(null)}
+onTouchMove={e=>{
+  if(!dragging) return;
+  const canvas=canvasRef.current?.getBoundingClientRect();
+  if(!canvas) return;
+  const touch=e.touches[0];
+  setDevices(p=>p.map(d=>d.id===dragging?{...d,x:Math.max(0,Math.min(touch.clientX-offset.x,canvas.width-80)),y:Math.max(0,Math.min(touch.clientY-offset.y,canvas.height-80))}:d));
+}}
+onTouchEnd={()=>setDragging(null)}
         onClick={()=>{if(tool==="select"){setSelected(null);onSelectDevice&&onSelectDevice(null);}setOpenDropdown(null);}}>
 
         <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}>
@@ -1941,6 +1949,7 @@ const Topology = ({onSelectDevice,selectedDeviceId,devices,setDevices,links,setL
           return (
             <div key={dev.id} style={{position:"absolute",left:dev.x,top:dev.y,width:80,userSelect:"none"}}
               onMouseDown={e=>handleMouseDown(e,dev)}
+              onTouchStart={e=>{e.stopPropagation();const touch=e.touches[0];setDragging(dev.id);setSelected(dev.id);setOffset({x:touch.clientX-dev.x,y:touch.clientY-dev.y});onSelectDevice&&onSelectDevice(dev);}}
               onDoubleClick={()=>{if(tool==="select") onConfigDevice&&onConfigDevice(dev);}}>
               <div style={{width:80,height:80,background:info.bg,border:`2px solid ${isSel?info.color:"#e5e7eb"}`,borderRadius:12,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:4,boxShadow:isSel?`0 0 0 3px ${info.color}33`:"0 2px 8px #00000015",cursor:tool==="select"?"grab":"default",transition:"all 0.1s"}}>
                 <DevIcon type={dev.type} size={28}/>
