@@ -2022,7 +2022,7 @@ export default function GUI({onCommand, connected}) {
           </div>
           <div>
             <div style={{fontSize:13,fontWeight:700,color:"#111827",lineHeight:1.2}}>Cisco IOS Simulator</div>
-            <div style={{fontSize:9,color:"#9ca3af"}}>Network Topology Builder</div>
+            
           </div>
           <div style={{width:1,background:"#e5e7eb",height:20,margin:"0 4px"}}/>
           <div style={{display:"flex",alignItems:"center",gap:5}}>
