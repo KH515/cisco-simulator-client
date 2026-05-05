@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "CI=false react-scripts build"
+    "build": "chmod +x node_modules/.bin/react-scripts && CI=false react-scripts build"
   },
   "browserslist": {
     "production": [
