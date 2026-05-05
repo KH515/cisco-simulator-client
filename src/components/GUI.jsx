@@ -1911,25 +1911,19 @@ const Topology = ({onSelectDevice,selectedDeviceId,devices,setDevices,links,setL
         {linking&&<div style={{background:"#fef3c7",border:"1px solid #fde68a",color:"#92400e",padding:"4px 12px",borderRadius:6,fontSize:11,fontWeight:600}}>Click device to link...</div>}
       </div>
 
-      <div style={{flex:1,position:"relative",background:"#f1f5f9",backgroundImage:"radial-gradient(#cbd5e1 1px, transparent 1px)",backgroundSize:"24px 24px",cursor:tool==="link"?"crosshair":tool==="delete"?"not-allowed":"default",overflow:"hidden"}}
+<div style={{flex:1,position:"relative",background:"#f1f5f9",backgroundImage:"radial-gradient(#cbd5e1 1px, transparent 1px)",backgroundSize:"24px 24px",cursor:tool==="link"?"crosshair":tool==="delete"?"not-allowed":"default",overflow:"hidden"}}
         ref={canvasRef}
         onMouseMove={handleMouseMove}
-        onMouseMove={handleMouseMove} onMouseUp={()=>setDragging(null)}
-onTouchMove={e=>{
-  if(!dragging) return;
-  const canvas=canvasRef.current?.getBoundingClientRect();
-  if(!canvas) return;
-  const touch=e.touches[0];
-  setDevices(p=>p.map(d=>d.id===dragging?{...d,x:Math.max(0,Math.min(touch.clientX-offset.x,canvas.width-80)),y:Math.max(0,Math.min(touch.clientY-offset.y,canvas.height-80))}:d));
-}}
-onTouchEnd={()=>setDragging(null)}
+        onMouseUp={()=>setDragging(null)}
+        onTouchMove={e=>{
+          if(!dragging) return;
+          const canvas=canvasRef.current?.getBoundingClientRect();
+          if(!canvas) return;
+          const touch=e.touches[0];
+          setDevices(p=>p.map(d=>d.id===dragging?{...d,x:Math.max(0,Math.min(touch.clientX-offset.x,canvas.width-80)),y:Math.max(0,Math.min(touch.clientY-offset.y,canvas.height-80))}:d));
+        }}
+        onTouchEnd={()=>setDragging(null)}
         onClick={()=>{if(tool==="select"){setSelected(null);onSelectDevice&&onSelectDevice(null);}setOpenDropdown(null);}}>
-onTouchStart={e=>{
-  if(e.touches.length===1&&tool==="select"&&!dragging){
-    const touch=e.touches[0];
-    setPanStart({x:touch.clientX,y:touch.clientY,scrollLeft:canvasRef.current?.scrollLeft||0,scrollTop:canvasRef.current?.scrollTop||0});
-  }
-}}
 onTouchMove={e=>{
   if(dragging) return;
   if(panStart&&e.touches.length===1){
