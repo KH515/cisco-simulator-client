@@ -1818,6 +1818,7 @@ const [termLines,setTermLines] = useState([
 
 const Topology = ({onSelectDevice,selectedDeviceId,devices,setDevices,links,setLinks,onConfigDevice}) => {
   const [dragging,setDragging] = useState(null);
+  const [panStart,setPanStart] = useState(null);
   const [offset,setOffset] = useState({x:0,y:0});
   const [tool,setTool] = useState("select");
   const [linking,setLinking] = useState(null);
@@ -1874,7 +1875,7 @@ const Topology = ({onSelectDevice,selectedDeviceId,devices,setDevices,links,setL
   };
 
   return (
-    <div style={{flex:1,display:"flex",flexDirection:"column",background:"#f8fafc",overflow:"hidden"}}>
+    <div style={{flex:1,display:"flex",flexDirection:"column",background:"#f8fafc",overflow:"auto"}}>
       <div style={{background:"#fff",borderBottom:"1px solid #e5e7eb",padding:"8px 16px",display:"flex",alignItems:"center",gap:6,flexWrap:"wrap"}}>
         <span style={{fontSize:10,fontWeight:700,color:"#9ca3af",marginRight:4}}>ADD:</span>
         {Object.entries(DEVICE_TYPES).map(([type,info])=>(
@@ -1923,7 +1924,25 @@ onTouchMove={e=>{
 }}
 onTouchEnd={()=>setDragging(null)}
         onClick={()=>{if(tool==="select"){setSelected(null);onSelectDevice&&onSelectDevice(null);}setOpenDropdown(null);}}>
-
+onTouchStart={e=>{
+  if(e.touches.length===1&&tool==="select"&&!dragging){
+    const touch=e.touches[0];
+    setPanStart({x:touch.clientX,y:touch.clientY,scrollLeft:canvasRef.current?.scrollLeft||0,scrollTop:canvasRef.current?.scrollTop||0});
+  }
+}}
+onTouchMove={e=>{
+  if(dragging) return;
+  if(panStart&&e.touches.length===1){
+    const touch=e.touches[0];
+    const dx=touch.clientX-panStart.x;
+    const dy=touch.clientY-panStart.y;
+    if(canvasRef.current){
+      canvasRef.current.scrollLeft=panStart.scrollLeft-dx;
+      canvasRef.current.scrollTop=panStart.scrollTop-dy;
+    }
+  }
+}}
+onTouchEnd={()=>setPanStart(null)}
         <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}>
           {links.map(link=>{
             const from=devices.find(d=>d.id===link.from);
