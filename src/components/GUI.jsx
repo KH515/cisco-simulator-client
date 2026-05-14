@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from "react";
+﻿import React, { useState, useRef, useCallback } from "react";
 
 const DEVICE_TYPES = {
   switch: {
@@ -225,7 +225,7 @@ if(cmd==="show ip nat translations"||cmd==="sh ip nat tr"){
     {t:"header",v:"Pro  Inside global     Inside local      Outside local     Outside global"},
     {t:"text",v:"tcp  203.0.113.1:1234  192.168.1.10:1234 8.8.8.8:80       8.8.8.8:80"},
   ]);return;}
-  // ═══ ROUTING PROTOCOLS ═══
+  // â•گâ•گâ•گ ROUTING PROTOCOLS â•گâ•گâ•گ
 if(parts[0]==="router"&&parts[1]==="ospf"&&parts[2]){
   if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
   setMode("config");
@@ -345,7 +345,7 @@ if(cmd==="show ip protocols"||cmd==="sh ip pro"){
     {t:"text",v:"  Routing for Networks:"},
     {t:"text",v:"    192.168.1.0 0.0.0.255 area 0"},
   ]);return;}
-  // ═══ ACL ═══
+  // â•گâ•گâ•گ ACL â•گâ•گâ•گ
 if(parts[0]==="access-list"&&parts[1]&&parts[2]&&parts[3]){
   if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
   const aclType=parseInt(parts[1])<=99?"Standard":parseInt(parts[1])<=199?"Extended":"Named";
@@ -374,7 +374,7 @@ if(cmd==="show ip access-lists"||cmd==="sh ip acc"){
     {t:"warn",v:"    20 deny   ip any any"},
   ]);return;}
 
-// ═══ NAT ═══
+// â•گâ•گâ•گ NAT â•گâ•گâ•گ
 if(parts[0]==="ip"&&parts[1]==="nat"&&parts[2]==="inside"){
   if(mode!=="interface"){addL([{t:"error",v:"% Must be in interface config mode."}]);return;}
   addL([{t:"success",v:`Interface ${currentIface} set as NAT inside`}]);return;}
@@ -407,7 +407,7 @@ if(cmd==="show ip nat statistics"||cmd==="sh ip nat st"){
 if(cmd==="clear ip nat translation *"){
   addL([{t:"success",v:"All NAT translations cleared"}]);return;}
 
-// ═══ DHCP ═══
+// â•گâ•گâ•گ DHCP â•گâ•گâ•گ
 if(parts[0]==="ip"&&parts[1]==="dhcp"&&parts[2]==="pool"&&parts[3]){
   if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
   addL([{t:"success",v:`DHCP pool '${parts[3]}' created`}]);
@@ -453,7 +453,7 @@ if(cmd==="show ip dhcp conflict"||cmd==="sh ip dhcp con"){
     {t:"header",v:"IP address        Detection method   Detection time"},
     {t:"warn",v:"192.168.1.50      Ping               Jan 1 2025 10:00 AM"},
   ]);return;}
-  // ═══ STP ═══
+  // â•گâ•گâ•گ STP â•گâ•گâ•گ
 if(cmd==="show spanning-tree"||cmd==="sh span"){
   addL([
     {t:"header",v:"VLAN0001"},
@@ -495,7 +495,7 @@ if(parts[0]==="spanning-tree"&&parts[1]==="bpduguard"&&parts[2]==="enable"){
   if(mode!=="interface"){addL([{t:"error",v:"% Must be in interface config mode."}]);return;}
   addL([{t:"success",v:`BPDU Guard enabled on ${currentIface}`}]);return;}
 
-// ═══ VTP ═══
+// â•گâ•گâ•گ VTP â•گâ•گâ•گ
 if(parts[0]==="vtp"&&parts[1]==="mode"){
   if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
   addL([{t:"success",v:`VTP mode set to ${parts[2]}`}]);return;}
@@ -522,7 +522,7 @@ if(cmd==="show vtp status"||cmd==="sh vtp st"){
     {t:"text",v:"Number of existing VLANs        : 5"},
   ]);return;}
 
-// ═══ PORT SECURITY ═══
+// â•گâ•گâ•گ PORT SECURITY â•گâ•گâ•گ
 if(cmd==="switchport port-security"){
   if(mode!=="interface"){addL([{t:"error",v:"% Must be in interface config mode."}]);return;}
   addL([{t:"success",v:`Port security enabled on ${currentIface}`}]);return;}
@@ -560,7 +560,7 @@ if(cmd==="show port-security interface"||cmd==="sh port-sec int"){
     {t:"text",v:`Security Violation Count   : 0`},
   ]);return;}
 
-// ═══ SSH ═══
+// â•گâ•گâ•گ SSH â•گâ•گâ•گ
 if(parts[0]==="ip"&&parts[1]==="domain-name"&&parts[2]){
   if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
   addL([{t:"success",v:`Domain name set to ${parts[2]}`}]);return;}
@@ -607,7 +607,7 @@ if(cmd==="show users"||cmd==="sh users"){
     {t:"success",v:"*  0 con 0    admin      idle                 00:00:00"},
     {t:"text",v:"   1 vty 0    admin      192.168.1.10         00:00:05"},
   ]);return;}
-  // ═══ ROUTER CONFIG COMMANDS ═══
+  // â•گâ•گâ•گ ROUTER CONFIG COMMANDS â•گâ•گâ•گ
 if(parts[0]==="banner"&&parts[1]==="motd"){
   if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
   addL([{t:"success",v:`Banner MOTD configured`}]);return;}
@@ -758,7 +758,7 @@ if(cmd==="erase startup-config"){
 if(cmd==="reload"){
   addL([{t:"warn",v:"Proceed with reload? [confirm]"},{t:"info",v:"System configuration has been modified. Save? [yes/no]:"},{t:"success",v:"Reloading..."}]);return;}
   
-  // ═══ AAA ═══
+  // â•گâ•گâ•گ AAA â•گâ•گâ•گ
 if(parts[0]==="aaa"&&parts[1]==="new-model"){
   if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
   addL([{t:"success",v:"AAA new-model enabled"}]);return;}
@@ -786,7 +786,7 @@ if(cmd==="show aaa"||cmd==="sh aaa"){
     {t:"text",v:"  Exec: default start-stop group tacacs+"},
   ]);return;}
 
-// ═══ CDP ═══
+// â•گâ•گâ•گ CDP â•گâ•گâ•گ
 if(cmd==="cdp run"){
   if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
   addL([{t:"success",v:"CDP enabled globally"}]);return;}
@@ -814,7 +814,7 @@ if(cmd==="show cdp neighbors detail"||cmd==="sh cdp nei det"){
     {t:"success",v:"  Version: Cisco IOS Software, Version 15.0(2)SE4"},
   ]);return;}
 
-// ═══ LLDP ═══
+// â•گâ•گâ•گ LLDP â•گâ•گâ•گ
 if(cmd==="lldp run"){
   if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
   addL([{t:"success",v:"LLDP enabled globally"}]);return;}
@@ -846,7 +846,7 @@ if(cmd==="show lldp"||cmd==="sh lldp"){
     {t:"text",v:"  LLDP hold time advertised is 120 seconds"},
   ]);return;}
 
-// ═══ LICENSE ═══
+// â•گâ•گâ•گ LICENSE â•گâ•گâ•گ
 if(cmd==="show license"||cmd==="sh lic"){
   addL([
     {t:"header",v:"Index 1 Feature: ipbasek9"},
@@ -868,9 +868,9 @@ if(cmd==="show license feature"||cmd==="sh lic feat"){
 
 if(parts[0]==="license"&&parts[1]==="boot"&&parts[2]==="module"){
   if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
-  addL([{t:"success",v:`License boot module ${parts.slice(3).join(" ")} configured — Reload required`}]);return;}
+  addL([{t:"success",v:`License boot module ${parts.slice(3).join(" ")} configured â€” Reload required`}]);return;}
 
-// ═══ LOGGING ═══
+// â•گâ•گâ•گ LOGGING â•گâ•گâ•گ
 if(parts[0]==="logging"&&parts[1]==="host"&&parts[2]){
   if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
   addL([{t:"success",v:`Syslog server ${parts[2]} configured`}]);return;}
@@ -898,7 +898,7 @@ if(cmd==="show logging"||cmd==="sh log"){
     {t:"success",v:"        Logging to 192.168.1.100"},
   ]);return;}
 
-// ═══ TACACS ═══
+// â•گâ•گâ•گ TACACS â•گâ•گâ•گ
 if(parts[0]==="tacacs-server"&&parts[1]==="host"&&parts[2]){
   if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
   addL([{t:"success",v:`TACACS+ server ${parts[2]} configured`}]);return;}
@@ -917,7 +917,7 @@ if(cmd==="show tacacs"||cmd==="sh tacacs"){
     {t:"success",v:"  Total packets recv: 20"},
   ]);return;}
 
-// ═══ VPDN ═══
+// â•گâ•گâ•گ VPDN â•گâ•گâ•گ
 if(parts[0]==="vpdn-group"&&parts[1]){
   if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
   setMode("config");
@@ -945,14 +945,14 @@ if(cmd==="show vpdn"||cmd==="sh vpdn"){
     {t:"text",v:"  Sessions: 1"},
   ]);return;}
 
-// ═══ PRIVILEGE ═══
+// â•گâ•گâ•گ PRIVILEGE â•گâ•گâ•گ
 if(parts[0]==="privilege"&&parts[1]==="exec"&&parts[2]==="level"&&parts[3]&&parts[4]){
   if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
   addL([{t:"success",v:`Privilege level ${parts[3]} assigned to command '${parts.slice(4).join(" ")}'`}]);return;}
 
 if(cmd==="show privilege"||cmd==="sh priv"){
   addL([{t:"success",v:"Current privilege level is 15"}]);return;}
-  // ═══ DOT1X ═══
+  // â•گâ•گâ•گ DOT1X â•گâ•گâ•گ
 if(cmd==="dot1x system-auth-control"){
   if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
   addL([{t:"success",v:"802.1X system authentication control enabled"}]);return;}
@@ -986,7 +986,7 @@ if(cmd==="show dot1x interface"||cmd==="sh dot1x int"){
     {t:"success",v:"ReAuthentication          = Disabled"},
   ]);return;}
 
-// ═══ MAC ═══
+// â•گâ•گâ•گ MAC â•گâ•گâ•گ
 if(parts[0]==="mac"&&parts[1]==="address-table"&&parts[2]==="static"){
   if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
   addL([{t:"success",v:`Static MAC entry ${parts[3]} added to VLAN ${parts[5]} on ${parts[7]}`}]);return;}
@@ -1011,7 +1011,7 @@ if(cmd==="show mac address-table"||cmd==="sh mac add"){
 if(cmd==="clear mac address-table dynamic"){
   addL([{t:"success",v:"MAC address table cleared"}]);return;}
 
-// ═══ MLS ═══
+// â•گâ•گâ•گ MLS â•گâ•گâ•گ
 if(parts[0]==="mls"&&parts[1]==="qos"){
   if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
   addL([{t:"success",v:"MLS QoS enabled"}]);return;}
@@ -1038,7 +1038,7 @@ if(cmd==="show mls qos interface"||cmd==="sh mls qos int"){
     {t:"text",v:"DSCP: incoming"},
   ]);return;}
 
-// ═══ MONITOR (SPAN) ═══
+// â•گâ•گâ•گ MONITOR (SPAN) â•گâ•گâ•گ
 if(parts[0]==="monitor"&&parts[1]==="session"&&parts[2]&&parts[3]==="source"){
   if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
   addL([{t:"success",v:`SPAN session ${parts[2]} source ${parts.slice(4).join(" ")} configured`}]);return;}
@@ -1063,10 +1063,10 @@ if(cmd==="show monitor"||cmd==="sh monitor"){
     {t:"text",v:"          Ingress : Disabled"},
   ]);return;}
 
-// ═══ SDM ═══
+// â•گâ•گâ•گ SDM â•گâ•گâ•گ
 if(parts[0]==="sdm"&&parts[1]==="prefer"&&parts[2]){
   if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
-  addL([{t:"success",v:`SDM template set to ${parts[2]} — Reload required`}]);return;}
+  addL([{t:"success",v:`SDM template set to ${parts[2]} â€” Reload required`}]);return;}
 
 if(cmd==="show sdm prefer"||cmd==="sh sdm prefer"){
   addL([
@@ -1080,9 +1080,75 @@ if(cmd==="show sdm prefer"||cmd==="sh sdm prefer"){
     {t:"text",v:" number of IPv4 unicast routes:                  0"},
     {t:"text",v:" number of IPv6 unicast routes:                  0"},
   ]);return;}
+  // â•گâ•گâ•گ BOOT â•گâ•گâ•گ
+if(parts[0]==="boot"&&parts[1]==="system"&&parts[2]){
+  if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
+  addL([{t:"success",v:`Boot system ${parts.slice(2).join(" ")} configured`}]);return;}
+
+if(cmd==="show boot"||cmd==="sh boot"){
+  addL([
+    {t:"header",v:"BOOT path-list      : flash:c2960-lanbasek9-mz.150-2.SE4.bin"},
+    {t:"text",v:"Config file         : flash:/config.text"},
+    {t:"text",v:"Private Config file : flash:/private-config.text"},
+    {t:"success",v:"Enable Break        : yes"},
+    {t:"text",v:"Manual Boot         : no"},
+    {t:"text",v:"NVRAM/Config file"},
+    {t:"text",v:"      buffer size:   65536"},
+  ]);return;}
+
+// â•گâ•گâ•گ CRYPTO (SSH) â•گâ•گâ•گ
+if(parts[0]==="crypto"&&parts[1]==="key"&&parts[2]==="generate"&&parts[3]==="rsa"){
+  if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
+  addL([
+    {t:"info",v:`The name for the keys will be: ${hostname}.ccna.lab`},
+    {t:"success",v:"% Generating 2048 bit RSA keys, keys will be non-exportable..."},
+    {t:"success",v:"[OK] (elapsed time was 2 seconds)"},
+  ]);return;}
+
+if(parts[0]==="crypto"&&parts[1]==="key"&&parts[2]==="zeroize"){
+  if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
+  addL([{t:"warn",v:"% All RSA keys will be removed"}]);
+  addL([{t:"success",v:"[OK]"}]);return;}
+
+// â•گâ•گâ•گ SERVICE â•گâ•گâ•گ
+if(parts[0]==="service"&&parts[1]==="password-encryption"){
+  if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
+  addL([{t:"success",v:"Password encryption enabled"}]);return;}
+
+if(parts[0]==="no"&&parts[1]==="service"&&parts[2]==="password-encryption"){
+  if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
+  addL([{t:"success",v:"Password encryption disabled"}]);return;}
+
+if(parts[0]==="service"&&parts[1]==="timestamps"){
+  if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
+  addL([{t:"success",v:`Service timestamps ${parts.slice(2).join(" ")} configured`}]);return;}
+
+// â•گâ•گâ•گ PRIVILEGE â•گâ•گâ•گ
+if(parts[0]==="privilege"&&parts[1]==="exec"&&parts[2]==="level"){
+  if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
+  addL([{t:"success",v:`Privilege level ${parts[3]} assigned to '${parts.slice(4).join(" ")}'`}]);return;}
+
+if(cmd==="show privilege"||cmd==="sh priv"){
+  addL([{t:"success",v:"Current privilege level is 15"}]);return;}
+
+// â•گâ•گâ•گ USERNAME â•گâ•گâ•گ
+if(parts[0]==="username"&&parts[1]&&parts[2]==="privilege"&&parts[3]&&parts[4]==="secret"&&parts[5]){
+  if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
+  addL([{t:"success",v:`User '${parts[1]}' privilege ${parts[3]} configured`}]);return;}
+
+if(parts[0]==="username"&&parts[1]&&parts[2]==="secret"&&parts[3]){
+  if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
+  addL([{t:"success",v:`User '${parts[1]}' secret configured`}]);return;}
+
+if(cmd==="show users"||cmd==="sh users"){
+  addL([
+    {t:"header",v:"    Line       User       Host(s)              Idle       Location"},
+    {t:"success",v:"*  0 con 0    admin      idle                 00:00:00"},
+    {t:"text",v:"   1 vty 0    admin      192.168.1.10         00:00:05"},
+  ]);return;}
     addL([{t:"error",v:`% Unrecognized command: '${raw}'. Type ? for help.`}]);
   };
-// ═══ IPv6 ═══
+// â•گâ•گâ•گ IPv6 â•گâ•گâ•گ
 if(parts[0]==="ipv6"&&parts[1]==="unicast-routing"){
   if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
   addL([{t:"success",v:"IPv6 unicast routing enabled"}]);return;}
@@ -1119,7 +1185,7 @@ if(parts[0]==="ipv6"&&parts[1]==="ospf"&&parts[2]&&parts[3]==="area"&&parts[4]){
   if(mode!=="interface"){addL([{t:"error",v:"% Must be in interface config mode."}]);return;}
   addL([{t:"success",v:`OSPFv3 process ${parts[2]} area ${parts[4]} on ${currentIface}`}]);return;}
 
-// ═══ PPP/WAN ═══
+// â•گâ•گâ•گ PPP/WAN â•گâ•گâ•گ
 if(parts[0]==="encapsulation"&&parts[1]){
   if(mode!=="interface"){addL([{t:"error",v:"% Must be in interface config mode."}]);return;}
   addL([{t:"success",v:`Encapsulation set to ${parts[1].toUpperCase()} on ${currentIface}`}]);return;}
@@ -1155,7 +1221,7 @@ if(cmd==="show interfaces serial 0/0/0"||cmd==="sh int se 0/0/0"){
     {t:"text",v:"  BW 1544 Kbit/sec, DLY 20000 usec"},
   ]);return;}
 
-// ═══ GRE TUNNEL ═══
+// â•گâ•گâ•گ GRE TUNNEL â•گâ•گâ•گ
 if(parts[0]==="interface"&&parts[1]&&parts[1].toLowerCase().startsWith("tunnel")){
   if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
   setCurrentIface(parts[1]);
@@ -1174,7 +1240,7 @@ if(parts[0]==="tunnel"&&parts[1]==="mode"&&parts[2]){
   if(mode!=="interface"){addL([{t:"error",v:"% Must be in interface config mode."}]);return;}
   addL([{t:"success",v:`Tunnel mode set to ${parts[2]}`}]);return;}
 
-// ═══ HSRP ═══
+// â•گâ•گâ•گ HSRP â•گâ•گâ•گ
 if(parts[0]==="standby"&&parts[1]&&parts[2]==="ip"&&parts[3]){
   if(mode!=="interface"){addL([{t:"error",v:"% Must be in interface config mode."}]);return;}
   addL([{t:"success",v:`HSRP group ${parts[1]} virtual IP ${parts[3]} configured`}]);return;}
@@ -1206,7 +1272,7 @@ if(cmd==="show standby brief"||cmd==="sh standby br"){
     {t:"success",v:"Gi0/0       1    110 P Active  local           192.168.1.2     192.168.1.254"},
   ]);return;}
 
-// ═══ QoS ═══
+// â•گâ•گâ•گ QoS â•گâ•گâ•گ
 if(parts[0]==="class-map"&&parts[1]==="match-any"&&parts[2]){
   if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
   setMode("config");
@@ -1256,7 +1322,7 @@ if(cmd==="show class-map"||cmd==="sh class-map"){
     {t:"text",v:"   Match protocol ftp"},
   ]);return;}
 
-// ═══ BGP ═══
+// â•گâ•گâ•گ BGP â•گâ•گâ•گ
 if(parts[0]==="router"&&parts[1]==="bgp"&&parts[2]){
   if(mode!=="config"){addL([{t:"error",v:"% Must be in config mode."}]);return;}
   setMode("config");
@@ -1291,7 +1357,7 @@ if(cmd==="show ip bgp"||cmd==="sh ip bgp"){
     {t:"text",v:"*> 192.168.2.0/24  2.2.2.2               0    100      0 65002 i"},
   ]);return;}
 
-// ═══ OSPF ADVANCED ═══
+// â•گâ•گâ•گ OSPF ADVANCED â•گâ•گâ•گ
 if(parts[0]==="area"&&parts[1]&&parts[2]==="authentication"){
   addL([{t:"success",v:`OSPF area ${parts[1]} authentication enabled`}]);return;}
 
@@ -1444,8 +1510,8 @@ const [tacacsHost,setTacacsHost] = useState("");
 const [tacacsKey,setTacacsKey] = useState("");
 const [loggingHost,setLoggingHost] = useState("");
 const [expanded,setExpanded] = useState(false);
-const [panelW,setPanelW] = useState(780);
-const [panelH,setPanelH] = useState(540);
+const [panelW,setPanelW] = useState(900);
+const [panelH,setPanelH] = useState(750);
 const [termLines,setTermLines] = useState([
     {t:"info",v:`Device: ${device.name} (${device.model})`},
     {t:"muted",v:"Ready for configuration."},
@@ -1465,19 +1531,19 @@ const [termLines,setTermLines] = useState([
     {id:"ip",label:"IP",types:["switch","router","firewall","pc","server"],icon:<><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></>},
     {id:"port",label:"Port",types:["switch","firewall","server"],icon:<><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></>},
     {id:"vlan",label:"VLAN",types:["switch"],icon:<><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></>},
-    {id:"trunk",label:"Trunk",types:["switch"],icon:<><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></>},
-    {id:"intervlan",label:"InterVLAN",types:["switch"],icon:<><polygon points="12 2 2 7 12 12 22 7 12 2"/><line x1="12" y1="22" x2="12" y2="12"/></>},
+    
+    
     {id:"etherchannel",label:"EtherCh",types:["switch"],icon:<><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></>},
-    {id:"hostname",label:"Name",types:["switch","router","firewall","server"],icon:<><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></>},
+    {id:"hostname",label:"Name",types:["switch","router","firewall","server","pc"],icon:<><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></>},
     {id:"route",label:"Route",types:["router","firewall"],icon:<><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></>},
-    {id:"ospf",label:"OSPF",types:["router"],icon:<><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></>},
+    {id:"ospf",label:"OSPF",types:["router","firewall"],icon:<><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></>},
     {id:"rip",label:"RIP",types:["router"],icon:<><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></>},
-    {id:"eigrp",label:"EIGRP",types:["router"],icon:<><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></>},
+    {id:"eigrp",label:"EIGRP",types:["router","firewall"],icon:<><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></>},
     {id:"dhcp",label:"DHCP",types:["router","server"],icon:<><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></>},
     {id:"nat",label:"NAT",types:["router","firewall"],icon:<><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></>},
     {id:"acl",label:"ACL",types:["router","firewall","switch"],icon:<><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></>},
     {id:"ssh",label:"SSH",types:["switch","router","firewall","server"],icon:<><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></>},
-    {id:"ntp",label:"NTP",types:["router","switch"],icon:<><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></>},
+    {id:"ntp",label:"NTP",types:["router","switch","firewall"],icon:<><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></>},
     {id:"snmp",label:"SNMP",types:["router","switch"],icon:<><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></>},
     {id:"banner",label:"Banner",types:["router","switch","firewall"],icon:<><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></>},
     {id:"password",label:"Password",types:["router","switch","firewall"],icon:<><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></>},
@@ -1485,7 +1551,7 @@ const [termLines,setTermLines] = useState([
     {id:"cdp",label:"CDP",types:["router","switch"],icon:<><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></>},
     {id:"lldp",label:"LLDP",types:["router","switch"],icon:<><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="7" y1="8" x2="7" y2="13"/><line x1="12" y1="6" x2="12" y2="13"/><line x1="17" y1="10" x2="17" y2="13"/></>},
     {id:"tacacs",label:"TACACS",types:["router","switch","firewall"],icon:<><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></>},
-    {id:"logging",label:"Logging",types:["router","switch"],icon:<><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></>},
+    {id:"logging",label:"Logging",types:["router","switch","firewall"],icon:<><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></>},
     {id:"ipv6",label:"IPv6",types:["router"],icon:<><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></>},
     {id:"ppp",label:"PPP/WAN",types:["router"],icon:<><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></>},
     {id:"gre",label:"GRE",types:["router"],icon:<><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></>},
@@ -1528,13 +1594,13 @@ const [termLines,setTermLines] = useState([
       ]);
     } else if(action==="ospf"){
   if(!ospfNet) return;
-  addCmd(["configure terminal",`router ospf ${ospfPid}`,`network ${ospfNet} ${ospfWild} area ${ospfArea}`,"end"],[{t:"success",v:`OSPF process ${ospfPid} — Network ${ospfNet} area ${ospfArea} configured`}]);
+  addCmd(["configure terminal",`router ospf ${ospfPid}`,`network ${ospfNet} ${ospfWild} area ${ospfArea}`,"end"],[{t:"success",v:`OSPF process ${ospfPid} â€” Network ${ospfNet} area ${ospfArea} configured`}]);
 } else if(action==="rip"){
   if(!ripNet) return;
-  addCmd(["configure terminal","router rip",`version ${ripVer}`,"no auto-summary",`network ${ripNet}`,"end"],[{t:"success",v:`RIP v${ripVer} — Network ${ripNet} configured`}]);
+  addCmd(["configure terminal","router rip",`version ${ripVer}`,"no auto-summary",`network ${ripNet}`,"end"],[{t:"success",v:`RIP v${ripVer} â€” Network ${ripNet} configured`}]);
 } else if(action==="eigrp"){
   if(!eigrpNet) return;
-  addCmd(["configure terminal",`router eigrp ${eigrpAs}`,`network ${eigrpNet} ${eigrpWild}`,"no auto-summary","end"],[{t:"success",v:`EIGRP AS${eigrpAs} — Network ${eigrpNet} configured`}]);
+  addCmd(["configure terminal",`router eigrp ${eigrpAs}`,`network ${eigrpNet} ${eigrpWild}`,"no auto-summary","end"],[{t:"success",v:`EIGRP AS${eigrpAs} â€” Network ${eigrpNet} configured`}]);
 } else if(action==="dhcp"){
   if(!dhcpNet||!dhcpPool) return;
   const cmds=["configure terminal"];
@@ -1557,14 +1623,14 @@ const [termLines,setTermLines] = useState([
   let cmd="";
   if(aclType==="standard") cmd=`access-list ${aclNum} ${aclAction} ${aclSrc} ${aclWild}`;
   else cmd=`access-list ${aclNum} ${aclAction} ${aclProto} ${aclSrc} ${aclWild} ${aclDst}`;
-  addCmd(["configure terminal",cmd,"end"],[{t:aclAction==="permit"?"success":"warn",v:`ACL ${aclNum} — ${aclAction} ${aclSrc} configured`}]);
+  addCmd(["configure terminal",cmd,"end"],[{t:aclAction==="permit"?"success":"warn",v:`ACL ${aclNum} â€” ${aclAction} ${aclSrc} configured`}]);
 } else if(action==="ssh"){
   if(!sshDomain||!sshUser) return;
-  addCmd(["configure terminal",`ip domain-name ${sshDomain}`,`username ${sshUser} privilege 15 secret ${sshPass}`,"crypto key generate rsa",`ip ssh version ${sshVer}`,"line vty 0 4","transport input ssh","login local","end"],[{t:"success",v:`SSH v${sshVer} configured — User: ${sshUser}`}]);
+  addCmd(["configure terminal",`ip domain-name ${sshDomain}`,`username ${sshUser} privilege 15 secret ${sshPass}`,"crypto key generate rsa",`ip ssh version ${sshVer}`,"line vty 0 4","transport input ssh","login local","end"],[{t:"success",v:`SSH v${sshVer} configured â€” User: ${sshUser}`}]);
 } else if(action==="stp"){
-  addCmd(["configure terminal",`spanning-tree mode ${stpMode}`,`spanning-tree vlan ${stpVlan} root ${stpRole}`,"end"],[{t:"success",v:`STP ${stpMode} — VLAN ${stpVlan} root ${stpRole}`}]);
+  addCmd(["configure terminal",`spanning-tree mode ${stpMode}`,`spanning-tree vlan ${stpVlan} root ${stpRole}`,"end"],[{t:"success",v:`STP ${stpMode} â€” VLAN ${stpVlan} root ${stpRole}`}]);
 } else if(action==="portsec"){
-  addCmd(["configure terminal",`interface ${iface}`,"switchport mode access","switchport port-security",`switchport port-security maximum ${psMax}`,`switchport port-security violation ${psViolation}`,`switchport port-security mac-address ${psMac}`,"end"],[{t:"success",v:`Port Security on ${iface} — max ${psMax} MACs, violation: ${psViolation}`}]);
+  addCmd(["configure terminal",`interface ${iface}`,"switchport mode access","switchport port-security",`switchport port-security maximum ${psMax}`,`switchport port-security violation ${psViolation}`,`switchport port-security mac-address ${psMac}`,"end"],[{t:"success",v:`Port Security on ${iface} â€” max ${psMax} MACs, violation: ${psViolation}`}]);
 } else if(action==="ntp"){
   if(!ntpServer) return;
   addCmd(["configure terminal",`ntp server ${ntpServer}`,"end"],[{t:"success",v:`NTP server ${ntpServer} configured`}]);
@@ -1588,7 +1654,7 @@ const [termLines,setTermLines] = useState([
   addCmd(["configure terminal",`interface ${pppIface}`,`encapsulation ppp`,`ppp authentication ${pppAuth}`,`ppp chap hostname ${pppUser}`,`ppp chap password ${pppPass}`,"no shutdown","end"],[{t:"success",v:`PPP ${pppAuth.toUpperCase()} configured on ${pppIface}`}]);
 } else if(action==="gre"){
   if(!greLocal||!greRemote) return;
-  addCmd(["configure terminal",`interface Tunnel${greTunnel}`,`ip address ${greTunnelIp.replace("/"," ").replace(/\/\d+/,"")} 255.255.255.252`,`tunnel source ${greLocal}`,`tunnel destination ${greRemote}`,"tunnel mode gre ip","no shutdown","end"],[{t:"success",v:`GRE Tunnel${greTunnel} configured: ${greLocal} → ${greRemote}`}]);
+  addCmd(["configure terminal",`interface Tunnel${greTunnel}`,`ip address ${greTunnelIp.replace("/"," ").replace(/\/\d+/,"")} 255.255.255.252`,`tunnel source ${greLocal}`,`tunnel destination ${greRemote}`,"tunnel mode gre ip","no shutdown","end"],[{t:"success",v:`GRE Tunnel${greTunnel} configured: ${greLocal} â†’ ${greRemote}`}]);
 } else if(action==="hsrp"){
   if(!hsrpVip) return;
   addCmd(["configure terminal",`interface ${hsrpIface}`,`standby ${hsrpGroup} ip ${hsrpVip}`,`standby ${hsrpGroup} priority ${hsrpPriority}`,`standby ${hsrpGroup} preempt`,"end"],[{t:"success",v:`HSRP group ${hsrpGroup} VIP ${hsrpVip} priority ${hsrpPriority}`}]);
@@ -1597,9 +1663,9 @@ const [termLines,setTermLines] = useState([
   addCmd(["configure terminal",`class-map match-any ${qosClass}`,`match protocol ip`,"exit",`policy-map ${qosPolicy}`,`class ${qosClass}`,`bandwidth ${qosBw}`,"exit","exit",`interface ${iface}`,`service-policy output ${qosPolicy}`,"end"],[{t:"success",v:`QoS policy '${qosPolicy}' applied on ${iface}`}]);
 } else if(action==="bgp"){
   if(!bgpAs||!bgpNeighbor) return;
-  addCmd(["configure terminal",`router bgp ${bgpAs}`,`neighbor ${bgpNeighbor} remote-as ${bgpRemoteAs}`,bgpNetwork?`network ${bgpNetwork} mask 255.255.255.0`:"","end"].filter(Boolean),[{t:"success",v:`BGP AS${bgpAs} — neighbor ${bgpNeighbor} AS${bgpRemoteAs} configured`}]);
+  addCmd(["configure terminal",`router bgp ${bgpAs}`,`neighbor ${bgpNeighbor} remote-as ${bgpRemoteAs}`,bgpNetwork?`network ${bgpNetwork} mask 255.255.255.0`:"","end"].filter(Boolean),[{t:"success",v:`BGP AS${bgpAs} â€” neighbor ${bgpNeighbor} AS${bgpRemoteAs} configured`}]);
 } else if(action==="aaa"){
-  addCmd(["configure terminal","aaa new-model",`aaa authentication login default ${aaaMode}`,"aaa authorization exec default local","end"],[{t:"success",v:`AAA configured — authentication: ${aaaMode}`}]);
+  addCmd(["configure terminal","aaa new-model",`aaa authentication login default ${aaaMode}`,"aaa authorization exec default local","end"],[{t:"success",v:`AAA configured â€” authentication: ${aaaMode}`}]);
 } else if(action==="cdp"){
   addCmd(["configure terminal","cdp run","end"],[{t:"success",v:"CDP enabled globally"}]);
 } else if(action==="lldp"){
@@ -1609,14 +1675,14 @@ const [termLines,setTermLines] = useState([
   addCmd(["configure terminal",`tacacs-server host ${tacacsHost}`,`tacacs-server key ${tacacsKey}`,"aaa new-model","aaa authentication login default group tacacs+ local","end"],[{t:"success",v:`TACACS+ server ${tacacsHost} configured`}]);
 } else if(action==="logging"){
   if(!loggingHost) return;
-  addCmd(["configure terminal",`logging host ${loggingHost}`,`logging trap ${loggingLevel}`,"logging on","end"],[{t:"success",v:`Syslog server ${loggingHost} — level: ${loggingLevel}`}]);
+  addCmd(["configure terminal",`logging host ${loggingHost}`,`logging trap ${loggingLevel}`,"logging on","end"],[{t:"success",v:`Syslog server ${loggingHost} â€” level: ${loggingLevel}`}]);
 }
   };
 
   return (
     <div style={{position:"fixed",inset:0,background:"#00000088",backdropFilter:"blur(4px)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:300}}>
-      <div style={{width:Math.min(panelW,window.innerWidth-20),height:Math.min(panelH,window.innerHeight-20),minWidth:600,minHeight:400,background:"#fff",borderRadius:16,display:"flex",overflow:"hidden",boxShadow:"0 24px 60px #00000030"}}>
-<div style={{width:Math.round(panelW*0.4),borderRight:"1px solid #e5e7eb",display:"flex",flexDirection:"column"}}>          <div style={{padding:"16px",borderBottom:"1px solid #e5e7eb",display:"flex",alignItems:"center",gap:10}}>
+      <div style={{width:Math.min(panelW,window.innerWidth-20),height:Math.min(panelH,window.innerHeight-20),minWidth:600,minHeight:400,background:"#f8fafc",borderRadius:16,display:"flex",overflow:"hidden",boxShadow:"0 24px 60px #00000030"}}>
+<div style={{width:Math.round(panelW*0.4),borderRight:"1px solid #e5e7eb",display:"flex",flexDirection:"column",overflow:"hidden"}}>          <div style={{padding:"16px",borderBottom:"1px solid #e5e7eb",display:"flex",alignItems:"center",gap:10}}>
             <div style={{width:36,height:36,background:info.bg,borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center"}}>
               <DevIcon type={device.type} size={20}/>
             </div>
@@ -1628,184 +1694,51 @@ const [termLines,setTermLines] = useState([
 <button onClick={()=>{setPanelW(w=>Math.max(w-150,500));setPanelH(h=>Math.max(h-100,400));}} style={{background:"#f3f4f6",border:"none",borderRadius:6,width:26,height:26,cursor:"pointer",fontSize:16,fontWeight:700,color:"#374151",marginLeft:4}}>-</button>
 <button onClick={onClose} style={{marginLeft:4,background:"#f3f4f6",border:"none",borderRadius:6,width:26,height:26,cursor:"pointer",fontSize:14,color:"#6b7280"}}>x</button>
           </div>
-          <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:3,padding:"8px",maxHeight:180,overflowY:"auto"}}>
+          <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:3,padding:"8px",maxHeight:150,overflowY:"visible",flex:1}}>
             {actions.map(a=>(
               <button key={a.id} onClick={()=>setAction(a.id)} style={{background:action===a.id?info.color:"#f8fafc",border:`1px solid ${action===a.id?info.color:"#e5e7eb"}`,borderRadius:8,padding:"8px 4px",cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",gap:3}}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={action===a.id?"#fff":info.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{a.icon}</svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={action===a.id?"#fff":info.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{a.icon}</svg>
                 <span style={{fontSize:9,fontWeight:700,color:action===a.id?"#fff":info.color}}>{a.label}</span>
               </button>
             ))}
           </div>
-          <div style={{flex:1,padding:"10px 14px",overflowY:"auto"}}>
-            {action==="ip" && <><Sel label="Interface" value={iface} onChange={setIface} options={ifaceOptions}/><Field label="IP Address" value={ip} onChange={setIp} placeholder="192.168.1.1"/><Field label="Subnet Mask" value={mask} onChange={setMask} placeholder="255.255.255.0"/></>}
-            {action==="port" && <><Sel label="Interface" value={iface} onChange={setIface} options={ifaceOptions}/><Sel label="Action" value={portAction} onChange={setPortAction} options={[{value:"enable",label:"Enable (no shutdown)"},{value:"disable",label:"Disable (shutdown)"}]}/></>}
-            {action==="vlan" && <><Field label="VLAN ID" value={vlanId} onChange={setVlanId} placeholder="e.g. 10"/><Field label="VLAN Name" value={vlanName} onChange={setVlanName} placeholder="e.g. Management"/><Sel label="Interface" value={iface} onChange={setIface} options={ifaceOptions}/></>}
-            {action==="hostname" && <Field label="New Hostname" value={newHostname} onChange={setNewHostname} placeholder="e.g. CoreSwitch"/>}
-            {action==="route" && <><Field label="Network" value={routeNet} onChange={setRouteNet} placeholder="192.168.2.0"/><Field label="Mask" value={routeMask} onChange={setRouteMask} placeholder="255.255.255.0"/><Field label="Next Hop" value={routeGw} onChange={setRouteGw} placeholder="192.168.1.254"/></>}
+<div style={{padding:"12px 14px",borderTop:"1px solid #e5e7eb"}}>
             
-            {action==="save" && <div style={{fontSize:12,color:"#6b7280",lineHeight:1.6}}>Save running-config to NVRAM.</div>}
-{action==="show" && <div style={{fontSize:12,color:"#6b7280",lineHeight:1.6}}>Show interface status.</div>}
-{action==="ospf" && <>
-  <Field label="Process ID" value={ospfPid} onChange={setOspfPid} placeholder="1"/>
-  <Field label="Network" value={ospfNet} onChange={setOspfNet} placeholder="192.168.1.0"/>
-  <Field label="Wildcard" value={ospfWild} onChange={setOspfWild} placeholder="0.0.0.255"/>
-  <Field label="Area" value={ospfArea} onChange={setOspfArea} placeholder="0"/>
-</>}
-{action==="rip" && <>
-  <Sel label="Version" value={ripVer} onChange={setRipVer} options={[{value:"2",label:"RIP v2"},{value:"1",label:"RIP v1"}]}/>
-  <Field label="Network" value={ripNet} onChange={setRipNet} placeholder="192.168.1.0"/>
-</>}
-{action==="eigrp" && <>
-  <Field label="AS Number" value={eigrpAs} onChange={setEigrpAs} placeholder="100"/>
-  <Field label="Network" value={eigrpNet} onChange={setEigrpNet} placeholder="192.168.1.0"/>
-  <Field label="Wildcard" value={eigrpWild} onChange={setEigrpWild} placeholder="0.0.0.255"/>
-</>}
-{action==="dhcp" && <>
-  <Field label="Pool Name" value={dhcpPool} onChange={setDhcpPool} placeholder="LAN_POOL"/>
-  <Field label="Network" value={dhcpNet} onChange={setDhcpNet} placeholder="192.168.1.0"/>
-  <Field label="Mask" value={dhcpMask} onChange={setDhcpMask} placeholder="255.255.255.0"/>
-  <Field label="Default Gateway" value={dhcpGw} onChange={setDhcpGw} placeholder="192.168.1.1"/>
-  <Field label="DNS Server" value={dhcpDns} onChange={setDhcpDns} placeholder="8.8.8.8"/>
-  <Field label="Excluded IPs" value={dhcpExcl} onChange={setDhcpExcl} placeholder="192.168.1.1 192.168.1.10"/>
-</>}
-{action==="nat" && <>
-  <Sel label="NAT Type" value={natType} onChange={setNatType} options={[{value:"overload",label:"PAT (Overload)"},{value:"static",label:"Static NAT"},{value:"dynamic",label:"Dynamic NAT"}]}/>
-  <Field label="Inside Interface" value={natInside} onChange={setNatInside} placeholder="GigabitEthernet0/0"/>
-  <Field label="Outside Interface" value={natOutside} onChange={setNatOutside} placeholder="GigabitEthernet0/1"/>
-  {natType==="static"&&<Field label="Inside Local IP" value={natLocalIp} onChange={setNatLocalIp} placeholder="192.168.1.10"/>}
-  {natType==="static"&&<Field label="Inside Global IP" value={natGlobalIp} onChange={setNatGlobalIp} placeholder="203.0.113.1"/>}
-  {natType!=="static"&&<Field label="ACL Number" value={natAcl} onChange={setNatAcl} placeholder="1"/>}
-</>}
-{action==="acl" && <>
-  <Sel label="ACL Type" value={aclType} onChange={setAclType} options={[{value:"standard",label:"Standard (1-99)"},{value:"extended",label:"Extended (100-199)"}]}/>
-  <Field label="ACL Number" value={aclNum} onChange={setAclNum} placeholder={aclType==="standard"?"10":"100"}/>
-  <Sel label="Action" value={aclAction} onChange={setAclAction} options={[{value:"permit",label:"Permit"},{value:"deny",label:"Deny"}]}/>
-  <Field label="Source IP" value={aclSrc} onChange={setAclSrc} placeholder="192.168.1.0"/>
-  <Field label="Wildcard" value={aclWild} onChange={setAclWild} placeholder="0.0.0.255"/>
-  {aclType==="extended"&&<Field label="Destination IP" value={aclDst} onChange={setAclDst} placeholder="any"/>}
-  {aclType==="extended"&&<Sel label="Protocol" value={aclProto} onChange={setAclProto} options={[{value:"ip",label:"IP"},{value:"tcp",label:"TCP"},{value:"udp",label:"UDP"},{value:"icmp",label:"ICMP"}]}/>}
-</>}
-{action==="ssh" && <>
-  <Field label="Domain Name" value={sshDomain} onChange={setSshDomain} placeholder="ccna.lab"/>
-  <Field label="Username" value={sshUser} onChange={setSshUser} placeholder="admin"/>
-  <Field label="Password" value={sshPass} onChange={setSshPass} placeholder="cisco123"/>
-  <Sel label="SSH Version" value={sshVer} onChange={setSshVer} options={[{value:"2",label:"SSH v2"},{value:"1",label:"SSH v1"}]}/>
-</>}
-{action==="stp" && <>
-  <Sel label="Mode" value={stpMode} onChange={setStpMode} options={[{value:"rapid-pvst",label:"Rapid PVST+"},{value:"pvst",label:"PVST"},{value:"mst",label:"MST"}]}/>
-  <Field label="VLAN" value={stpVlan} onChange={setStpVlan} placeholder="1"/>
-  <Sel label="Role" value={stpRole} onChange={setStpRole} options={[{value:"primary",label:"Root Primary"},{value:"secondary",label:"Root Secondary"}]}/>
-</>}
-{action==="portsec" && <>
-  <Sel label="Interface" value={iface} onChange={setIface} options={ifaceOptions}/>
-  <Field label="Max MACs" value={psMax} onChange={setPsMax} placeholder="2"/>
-  <Sel label="Violation" value={psViolation} onChange={setPsViolation} options={[{value:"shutdown",label:"Shutdown"},{value:"restrict",label:"Restrict"},{value:"protect",label:"Protect"}]}/>
-  <Sel label="MAC Learning" value={psMac} onChange={setPsMac} options={[{value:"sticky",label:"Sticky"},{value:"static",label:"Static"}]}/>
-</>}
-{action==="trunk" && <>
-  <Sel label="Interface" value={trunkIface} onChange={setTrunkIface} options={ifaceOptions}/>
-  <Sel label="Mode" value={trunkMode} onChange={setTrunkMode} options={[{value:"trunk",label:"Trunk"},{value:"access",label:"Access"},{value:"dynamic auto",label:"Dynamic Auto"},{value:"dynamic desirable",label:"Dynamic Desirable"}]}/>
-  <Field label="Allowed VLANs" value={trunkVlans} onChange={setTrunkVlans} placeholder="1,10,20"/>
-</>}
-{action==="etherchannel" && <>
-  <Field label="Group Number" value={ecGroup} onChange={setEcGroup} placeholder="1"/>
-  <Sel label="Protocol" value={ecMode} onChange={setEcMode} options={[{value:"active",label:"LACP Active"},{value:"passive",label:"LACP Passive"},{value:"desirable",label:"PAgP Desirable"},{value:"auto",label:"PAgP Auto"},{value:"on",label:"On (Static)"}]}/>
-  <Field label="Interfaces" value={ecIfaces} onChange={setEcIfaces} placeholder="GigabitEthernet0/0"/>
-</>}
-{action==="intervlan" && <>
-  <Field label="VLAN ID" value={ivVlan} onChange={setIvVlan} placeholder="10"/>
-  <Field label="IP Address" value={ivIp} onChange={setIvIp} placeholder="192.168.10.1"/>
-  <Field label="Subnet Mask" value={ivMask} onChange={setIvMask} placeholder="255.255.255.0"/>
-</>}
-{action==="vtp" && <>
-  <Sel label="VTP Mode" value={vtpMode} onChange={setVtpMode} options={[{value:"server",label:"Server"},{value:"client",label:"Client"},{value:"transparent",label:"Transparent"}]}/>
-  <Field label="Domain Name" value={vtpDomain} onChange={setVtpDomain} placeholder="CCNA_LAB"/>
-  <Field label="Password" value={vtpPass} onChange={setVtpPass} placeholder="cisco123"/>
-</>}
-{action==="ntp" && <>
-  <Field label="NTP Server IP" value={ntpServer} onChange={setNtpServer} placeholder="216.239.35.0"/>
-</>}
-{action==="snmp" && <>
-  <Field label="Community String" value={snmpCommunity} onChange={setSnmpCommunity} placeholder="public"/>
-  <Sel label="Permission" value={snmpMode} onChange={setSnmpMode} options={[{value:"RO",label:"Read Only (RO)"},{value:"RW",label:"Read Write (RW)"}]}/>
-</>}
-{action==="banner" && <>
-  <div style={{marginBottom:12}}>
-    <div style={{fontSize:11,fontWeight:600,color:"#374151",marginBottom:4}}>Banner Message</div>
-    <textarea value={bannerMsg} onChange={e=>setBannerMsg(e.target.value)} placeholder="Authorized Access Only!"
-      style={{width:"100%",padding:"8px 10px",border:"1px solid #e5e7eb",borderRadius:6,fontSize:12,outline:"none",fontFamily:"monospace",boxSizing:"border-box",background:"#f9fafb",resize:"vertical",minHeight:80}}/>
-  </div>
-</>}
-{action==="password" && <>
-{action==="ipv6" && <>
-  <Sel label="Interface" value={ipv6Iface} onChange={setIpv6Iface} options={ifaceOptions}/>
-  <Field label="IPv6 Address/Prefix" value={ipv6Addr} onChange={setIpv6Addr} placeholder="2001:DB8:1::1/64"/>
-</>}
-{action==="ppp" && <>
-  <Field label="Serial Interface" value={pppIface} onChange={setPppIface} placeholder="Serial0/0/0"/>
-  <Sel label="Authentication" value={pppAuth} onChange={setPppAuth} options={[{value:"chap",label:"CHAP"},{value:"pap",label:"PAP"}]}/>
-  <Field label="Hostname/Username" value={pppUser} onChange={setPppUser} placeholder="Router1"/>
-  <Field label="Password" value={pppPass} onChange={setPppPass} placeholder="cisco123"/>
-</>}
-{action==="gre" && <>
-  <Field label="Tunnel Number" value={greTunnel} onChange={setGreTunnel} placeholder="0"/>
-  <Field label="Tunnel IP/Mask" value={greTunnelIp} onChange={setGreTunnelIp} placeholder="172.16.0.1/30"/>
-  <Field label="Source IP" value={greLocal} onChange={setGreLocal} placeholder="203.0.113.1"/>
-  <Field label="Destination IP" value={greRemote} onChange={setGreRemote} placeholder="203.0.113.2"/>
-</>}
-{action==="hsrp" && <>
-  <Sel label="Interface" value={hsrpIface} onChange={setHsrpIface} options={ifaceOptions}/>
-  <Field label="Group Number" value={hsrpGroup} onChange={setHsrpGroup} placeholder="1"/>
-  <Field label="Virtual IP" value={hsrpVip} onChange={setHsrpVip} placeholder="192.168.1.254"/>
-  <Field label="Priority" value={hsrpPriority} onChange={setHsrpPriority} placeholder="110"/>
-</>}
-{action==="qos" && <>
-  <Field label="Class Map Name" value={qosClass} onChange={setQosClass} placeholder="VOICE"/>
-  <Field label="Policy Map Name" value={qosPolicy} onChange={setQosPolicy} placeholder="TRAFFIC_POLICY"/>
-  <Field label="Bandwidth (kbps)" value={qosBw} onChange={setQosBw} placeholder="512"/>
-  <Sel label="Interface" value={iface} onChange={setIface} options={ifaceOptions}/>
-</>}
-{action==="bgp" && <>
-{action==="aaa" && <>
-  <Sel label="Authentication" value={aaaMode} onChange={setAaaMode} options={[{value:"local",label:"Local"},{value:"tacacs+",label:"TACACS+"},{value:"radius",label:"RADIUS"}]}/>
-  <div style={{fontSize:11,color:"#6b7280",lineHeight:1.6}}>Enables AAA and sets authentication method.</div>
-</>}
-{action==="cdp" && <>
-  <div style={{fontSize:11,color:"#6b7280",lineHeight:1.6}}>Enable/Disable Cisco Discovery Protocol globally and per interface.</div>
-</>}
-{action==="lldp" && <>
-  <div style={{fontSize:11,color:"#6b7280",lineHeight:1.6}}>Enable/Disable Link Layer Discovery Protocol globally.</div>
-</>}
-{action==="tacacs" && <>
-  <Field label="TACACS+ Server IP" value={tacacsHost} onChange={setTacacsHost} placeholder="192.168.1.100"/>
-  <Field label="Secret Key" value={tacacsKey} onChange={setTacacsKey} placeholder="cisco123"/>
-</>}
-{action==="logging" && <>
-  <Field label="Syslog Server IP" value={loggingHost} onChange={setLoggingHost} placeholder="192.168.1.100"/>
-  <Sel label="Trap Level" value={loggingLevel} onChange={setLoggingLevel} options={[{value:"emergencies",label:"0 - Emergencies"},{value:"alerts",label:"1 - Alerts"},{value:"critical",label:"2 - Critical"},{value:"errors",label:"3 - Errors"},{value:"warnings",label:"4 - Warnings"},{value:"notifications",label:"5 - Notifications"},{value:"informational",label:"6 - Informational"},{value:"debugging",label:"7 - Debugging"}]}/>
-</>}
-  <Field label="Local AS Number" value={bgpAs} onChange={setBgpAs} placeholder="65001"/>
-  <Field label="Neighbor IP" value={bgpNeighbor} onChange={setBgpNeighbor} placeholder="2.2.2.2"/>
-  <Field label="Remote AS" value={bgpRemoteAs} onChange={setBgpRemoteAs} placeholder="65002"/>
-  <Field label="Network to Advertise" value={bgpNetwork} onChange={setBgpNetwork} placeholder="192.168.1.0"/>
-</>}
-  <Field label="Enable Secret" value={enableSecret} onChange={setEnableSecret} placeholder="cisco123"/>
-  <Field label="Console Password" value={consolePass} onChange={setConsolePass} placeholder="cisco"/>
-  <Field label="VTY Password" value={vtyPass} onChange={setVtyPass} placeholder="cisco"/>
-</>}
-          </div>
-          <div style={{padding:"12px 14px",borderTop:"1px solid #e5e7eb"}}>
-            <button onClick={apply} style={{width:"100%",background:info.color,border:"none",color:"#fff",padding:"10px",borderRadius:8,cursor:"pointer",fontSize:13,fontWeight:700}}>Apply</button>
           </div>
         </div>
         <div style={{flex:1,background:"#0f172a",display:"flex",flexDirection:"column"}}>
-          <div style={{background:"#1e293b",padding:"10px 16px",display:"flex",alignItems:"center",gap:8}}>
+          <div style={{width:220,minWidth:180,borderRight:"1px solid #e5e7eb",background:"#f8fafc",padding:"10px",overflowY:"auto",display:"flex",flexDirection:"column"}}>
+{action==="ip" && <><Sel label="Interface" value={iface} onChange={setIface} options={ifaceOptions}/><Field label="IP Address" value={ip} onChange={setIp} placeholder="192.168.1.1"/><Field label="Subnet Mask" value={mask} onChange={setMask} placeholder="255.255.255.0"/>{device.type==="pc"&&<><Field label="Default Gateway" value={routeGw} onChange={setRouteGw} placeholder="192.168.1.1"/><Field label="DNS Server" value={dhcpDns} onChange={setDhcpDns} placeholder="8.8.8.8"/></>}</>}
+{action==="port" && <><Sel label="Interface" value={iface} onChange={setIface} options={ifaceOptions}/><Sel label="Action" value={portAction} onChange={setPortAction} options={[{value:"enable",label:"Enable (no shutdown)"},{value:"disable",label:"Disable (shutdown)"}]}/></>}
+{action==="vlan" && <><Field label="VLAN ID" value={vlanId} onChange={setVlanId} placeholder="10"/><Field label="VLAN Name" value={vlanName} onChange={setVlanName} placeholder="Management"/><Sel label="Interface" value={iface} onChange={setIface} options={ifaceOptions}/></>}
+{action==="hostname" && <Field label="New Hostname" value={newHostname} onChange={setNewHostname} placeholder="e.g. CoreSwitch"/>}
+{action==="route" && <><Field label="Network" value={routeNet} onChange={setRouteNet} placeholder="192.168.2.0"/><Field label="Mask" value={routeMask} onChange={setRouteMask} placeholder="255.255.255.0"/><Field label="Next Hop" value={routeGw} onChange={setRouteGw} placeholder="192.168.1.254"/></>}
+{action==="ospf" && <><Field label="Process ID" value={ospfPid} onChange={setOspfPid} placeholder="1"/><Field label="Network" value={ospfNet} onChange={setOspfNet} placeholder="192.168.1.0"/><Field label="Wildcard" value={ospfWild} onChange={setOspfWild} placeholder="0.0.0.255"/><Field label="Area" value={ospfArea} onChange={setOspfArea} placeholder="0"/></>}
+{action==="rip" && <><Sel label="Version" value={ripVer} onChange={setRipVer} options={[{value:"2",label:"RIP v2"},{value:"1",label:"RIP v1"}]}/><Field label="Network" value={ripNet} onChange={setRipNet} placeholder="192.168.1.0"/></>}
+{action==="eigrp" && <><Field label="AS Number" value={eigrpAs} onChange={setEigrpAs} placeholder="100"/><Field label="Network" value={eigrpNet} onChange={setEigrpNet} placeholder="192.168.1.0"/><Field label="Wildcard" value={eigrpWild} onChange={setEigrpWild} placeholder="0.0.0.255"/></>}
+{action==="dhcp" && <><Field label="Pool Name" value={dhcpPool} onChange={setDhcpPool} placeholder="LAN_POOL"/><Field label="Network" value={dhcpNet} onChange={setDhcpNet} placeholder="192.168.1.0"/><Field label="Mask" value={dhcpMask} onChange={setDhcpMask} placeholder="255.255.255.0"/><Field label="Default Gateway" value={dhcpGw} onChange={setDhcpGw} placeholder="192.168.1.1"/><Field label="DNS Server" value={dhcpDns} onChange={setDhcpDns} placeholder="8.8.8.8"/></>}
+{action==="nat" && <><Sel label="NAT Type" value={natType} onChange={setNatType} options={[{value:"overload",label:"PAT (Overload)"},{value:"static",label:"Static NAT"},{value:"dynamic",label:"Dynamic NAT"}]}/><Field label="Inside Interface" value={natInside} onChange={setNatInside} placeholder="GigabitEthernet0/0"/><Field label="Outside Interface" value={natOutside} onChange={setNatOutside} placeholder="GigabitEthernet0/1"/></>}
+{action==="acl" && <><Sel label="ACL Type" value={aclType} onChange={setAclType} options={[{value:"standard",label:"Standard (1-99)"},{value:"extended",label:"Extended (100-199)"}]}/><Field label="ACL Number" value={aclNum} onChange={setAclNum} placeholder="10"/><Sel label="Action" value={aclAction} onChange={setAclAction} options={[{value:"permit",label:"Permit"},{value:"deny",label:"Deny"}]}/><Field label="Source IP" value={aclSrc} onChange={setAclSrc} placeholder="192.168.1.0"/></>}
+{action==="ssh" && <><Field label="Domain Name" value={sshDomain} onChange={setSshDomain} placeholder="ccna.lab"/><Field label="Username" value={sshUser} onChange={setSshUser} placeholder="admin"/><Field label="Password" value={sshPass} onChange={setSshPass} placeholder="cisco123"/></>}
+{action==="ntp" && <Field label="NTP Server" value={ntpServer} onChange={setNtpServer} placeholder="216.239.35.0"/>}
+{action==="snmp" && <><Field label="Community" value={snmpCommunity} onChange={setSnmpCommunity} placeholder="public"/><Sel label="Mode" value={snmpMode} onChange={setSnmpMode} options={[{value:"RO",label:"Read Only"},{value:"RW",label:"Read Write"}]}/></>}
+{action==="banner" && <Field label="Banner Message" value={bannerMsg} onChange={setBannerMsg} placeholder="Authorized access only!"/>}
+{action==="password" && <><Field label="Enable Secret" value={enableSecret} onChange={setEnableSecret} placeholder="cisco123"/><Field label="Console Password" value={consolePass} onChange={setConsolePass} placeholder="cisco123"/><Field label="VTY Password" value={vtyPass} onChange={setVtyPass} placeholder="cisco123"/></>}
+{action==="stp" && <><Sel label="Mode" value={stpMode} onChange={setStpMode} options={[{value:"rapid-pvst",label:"Rapid PVST+"},{value:"pvst",label:"PVST"},{value:"mst",label:"MST"}]}/><Field label="VLAN" value={stpVlan} onChange={setStpVlan} placeholder="1"/></>}
+{action==="vtp" && <><Sel label="VTP Mode" value={vtpMode} onChange={setVtpMode} options={[{value:"server",label:"Server"},{value:"client",label:"Client"},{value:"transparent",label:"Transparent"}]}/><Field label="Domain" value={vtpDomain} onChange={setVtpDomain} placeholder="CCNA_LAB"/></>}
+{action==="etherchannel" && <><Field label="Group" value={ecGroup} onChange={setEcGroup} placeholder="1"/><Sel label="Mode" value={ecMode} onChange={setEcMode} options={[{value:"active",label:"Active (LACP)"},{value:"passive",label:"Passive (LACP)"},{value:"on",label:"On (Static)"}]}/><Field label="Interfaces" value={ecIfaces} onChange={setEcIfaces} placeholder="Gi0/0,Gi0/1"/></>}
+{action==="portsec" && <><Field label="Max MACs" value={psMax} onChange={setPsMax} placeholder="2"/><Sel label="Violation" value={psViolation} onChange={setPsViolation} options={[{value:"shutdown",label:"Shutdown"},{value:"restrict",label:"Restrict"},{value:"protect",label:"Protect"}]}/></>}
+{action==="aaa" && <><Sel label="Authentication" value={aaaMode} onChange={setAaaMode} options={[{value:"local",label:"Local"},{value:"tacacs+",label:"TACACS+"},{value:"radius",label:"RADIUS"}]}/></>}
+{action==="tacacs" && <><Field label="TACACS+ Server IP" value={tacacsHost} onChange={setTacacsHost} placeholder="192.168.1.100"/><Field label="Secret Key" value={tacacsKey} onChange={setTacacsKey} placeholder="cisco123"/></>}
+{action==="logging" && <><Field label="Syslog Server IP" value={loggingHost} onChange={setLoggingHost} placeholder="192.168.1.100"/></>}
+<button onClick={apply} style={{width:"100%",background:info.color,border:"none",color:"#fff",padding:"8px",borderRadius:8,cursor:"pointer",fontSize:13,fontWeight:700,marginTop:8}}>Apply</button>
+</div>          <div style={{background:"#1e293b",padding:"10px 16px",display:"flex",alignItems:"center",gap:8}}>
             <div style={{display:"flex",gap:6}}>
               <div style={{width:10,height:10,borderRadius:"50%",background:"#ef4444"}}/>
               <div style={{width:10,height:10,borderRadius:"50%",background:"#f59e0b"}}/>
               <div style={{width:10,height:10,borderRadius:"50%",background:"#10b981"}}/>
             </div>
-            <span style={{fontSize:11,color:"#64748b",fontFamily:"monospace"}}>Terminal — {device.name}</span>
+            <span style={{fontSize:11,color:"#64748b",fontFamily:"monospace"}}>Terminal â€” {device.name}</span>
           </div>
           <div style={{flex:1,overflowY:"auto",padding:"14px 18px",fontFamily:"monospace",fontSize:12,lineHeight:1.8}}>
             {termLines.map((line,i)=>{
@@ -1988,16 +1921,20 @@ export default function GUI({onCommand, connected}) {
   const [configDevice,setConfigDevice] = useState(null);
   const [saveStatus,setSaveStatus] = useState("");
   const [links,setLinks] = useState([
-    {id:"l1",from:"pc1",to:"sw1"},
-    {id:"l2",from:"pc2",to:"sw1"},
-    {id:"l3",from:"sw1",to:"rt1"},
+    {id:"l1",from:"rt1",to:"fw1",fromIface:"GigabitEthernet0/0",toIface:"GigabitEthernet0/0"},
+    {id:"l2",from:"fw1",to:"sw1",fromIface:"GigabitEthernet0/1",toIface:"GigabitEthernet0/0"},
+    {id:"l3",from:"sw1",to:"pc1",fromIface:"GigabitEthernet0/1",toIface:"FastEthernet0"},
+    {id:"l4",from:"sw1",to:"pc2",fromIface:"GigabitEthernet0/2",toIface:"FastEthernet0"},
+    {id:"l5",from:"sw1",to:"srv1",fromIface:"GigabitEthernet0/3",toIface:"FastEthernet0"},
   ]);
   const [zoom,setZoom] = useState(1);
   const [devices,setDevices] = useState([
-    {id:"sw1",type:"switch",name:"Switch1",model:"Cisco 2960-24TT",x:300,y:200},
-    {id:"rt1",type:"router",name:"Router1",model:"Cisco 2911",x:520,y:180},
-    {id:"pc1",type:"pc",name:"PC1",model:"PC (Windows)",x:160,y:340},
-    {id:"pc2",type:"pc",name:"PC2",model:"PC (Windows)",x:320,y:360},
+    {id:"rt1",type:"router",name:"Router1",model:"Cisco 2911",x:300,y:10},
+    {id:"fw1",type:"firewall",name:"Firewall1",model:"Cisco ASA 5505",x:300,y:130},
+    {id:"sw1",type:"switch",name:"Switch1",model:"Cisco 2960-24TT",x:300,y:250},
+    {id:"pc1",type:"pc",name:"PC1",model:"PC (Windows)",x:100,y:370},
+    {id:"pc2",type:"pc",name:"PC2",model:"PC (Windows)",x:300,y:370},
+    {id:"srv1",type:"server",name:"Server1",model:"DHCP Server",x:500,y:370},
   ]);
 
   const saveTopology = () => {
@@ -2096,3 +2033,27 @@ export default function GUI({onCommand, connected}) {
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
