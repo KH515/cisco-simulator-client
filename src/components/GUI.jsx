@@ -34,7 +34,7 @@ const DEVICE_TYPES = {
       {name:"Cisco ASA 5516-X",ports:"8 GE + 2 SFP",ios:"ASA 9.8"},
       {name:"Cisco FTD 1010",ports:"8 GE",ios:"FTD 7.x"},
     ],
-    interfaces:["GigabitEthernet0/0","GigabitEthernet0/1","GigabitEthernet0/2"],
+    interfaces:["GigabitEthernet0/0","GigabitEthernet0/1","GigabitEthernet0/2","GigabitEthernet0/3","Management0/0","Serial0/0/0","Serial0/0/1"],
   },
   pc:{
     label:"PC", color:"#374151", bg:"#f9fafb",
@@ -1316,7 +1316,7 @@ if(cmd==="show ip ospf interface"||cmd==="sh ip ospf int"){
   ]);return;}
   return (
     <div style={{position:"fixed",inset:0,background:"#00000088",backdropFilter:"blur(4px)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:300}}>
-      <div style={{width:640,height:500,background:"#0f172a",borderRadius:14,display:"flex",flexDirection:"column",boxShadow:"0 24px 60px #00000055",overflow:"hidden"}}>
+      <div style={{width:"780px",height:"540px",background:"#0f172a",borderRadius:14,display:"flex",flexDirection:"column",resize:"both",overflow:"auto",boxShadow:"0 24px 60px #00000055"}}>
         <div style={{background:"#1e293b",padding:"10px 16px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
           <div style={{display:"flex",alignItems:"center",gap:10}}>
             <div style={{display:"flex",gap:6}}>
@@ -1444,6 +1444,8 @@ const [tacacsHost,setTacacsHost] = useState("");
 const [tacacsKey,setTacacsKey] = useState("");
 const [loggingHost,setLoggingHost] = useState("");
 const [expanded,setExpanded] = useState(false);
+const [panelW,setPanelW] = useState(780);
+const [panelH,setPanelH] = useState(540);
 const [termLines,setTermLines] = useState([
     {t:"info",v:`Device: ${device.name} (${device.model})`},
     {t:"muted",v:"Ready for configuration."},
@@ -1613,9 +1615,8 @@ const [termLines,setTermLines] = useState([
 
   return (
     <div style={{position:"fixed",inset:0,background:"#00000088",backdropFilter:"blur(4px)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:300}}>
-      <div style={{width:"80vw",height:"80vh",minWidth:600,minHeight:400,background:"#fff",borderRadius:16,display:"flex",overflow:"hidden",boxShadow:"0 24px 60px #00000030",resize:"both"}}>
-        <div style={{width:300,borderRight:"1px solid #e5e7eb",display:"flex",flexDirection:"column"}}>
-          <div style={{padding:"16px",borderBottom:"1px solid #e5e7eb",display:"flex",alignItems:"center",gap:10}}>
+      <div style={{width:Math.min(panelW,window.innerWidth-20),height:Math.min(panelH,window.innerHeight-20),minWidth:600,minHeight:400,background:"#fff",borderRadius:16,display:"flex",overflow:"hidden",boxShadow:"0 24px 60px #00000030"}}>
+<div style={{width:Math.round(panelW*0.4),borderRight:"1px solid #e5e7eb",display:"flex",flexDirection:"column"}}>          <div style={{padding:"16px",borderBottom:"1px solid #e5e7eb",display:"flex",alignItems:"center",gap:10}}>
             <div style={{width:36,height:36,background:info.bg,borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center"}}>
               <DevIcon type={device.type} size={20}/>
             </div>
@@ -1623,7 +1624,9 @@ const [termLines,setTermLines] = useState([
               <div style={{fontSize:13,fontWeight:700,color:"#111827"}}>{device.name}</div>
               <div style={{fontSize:10,color:"#9ca3af"}}>{device.model}</div>
             </div>
-            <button onClick={onClose} style={{marginLeft:"auto",background:"#f3f4f6",border:"none",borderRadius:6,width:26,height:26,cursor:"pointer",fontSize:14,color:"#6b7280"}}>x</button>
+            <button onClick={()=>{setPanelW(w=>Math.min(w+200,1800));setPanelH(h=>Math.min(h+150,1200));}} style={{background:"#f3f4f6",border:"none",borderRadius:6,width:26,height:26,cursor:"pointer",fontSize:16,fontWeight:700,color:"#374151"}}>+</button>
+<button onClick={()=>{setPanelW(w=>Math.max(w-150,500));setPanelH(h=>Math.max(h-100,400));}} style={{background:"#f3f4f6",border:"none",borderRadius:6,width:26,height:26,cursor:"pointer",fontSize:16,fontWeight:700,color:"#374151",marginLeft:4}}>-</button>
+<button onClick={onClose} style={{marginLeft:4,background:"#f3f4f6",border:"none",borderRadius:6,width:26,height:26,cursor:"pointer",fontSize:14,color:"#6b7280"}}>x</button>
           </div>
           <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:3,padding:"8px",maxHeight:180,overflowY:"auto"}}>
             {actions.map(a=>(
@@ -1816,7 +1819,7 @@ const [termLines,setTermLines] = useState([
   );
 };
 
-const Topology = ({onSelectDevice,selectedDeviceId,devices,setDevices,links,setLinks,onConfigDevice}) => {
+const Topology = ({onSelectDevice,selectedDeviceId,devices,setDevices,links,setLinks,onConfigDevice,zoom=1,setZoom}) => {
   const [dragging,setDragging] = useState(null);
   const [panStart,setPanStart] = useState(null);
   const [offset,setOffset] = useState({x:0,y:0});
@@ -1909,6 +1912,11 @@ const Topology = ({onSelectDevice,selectedDeviceId,devices,setDevices,links,setL
           </button>
         ))}
         {linking&&<div style={{background:"#fef3c7",border:"1px solid #fde68a",color:"#92400e",padding:"4px 12px",borderRadius:6,fontSize:11,fontWeight:600}}>Click device to link...</div>}
+        <div style={{display:"flex",alignItems:"center",gap:4,marginLeft:"auto"}}>
+          <button onClick={()=>setZoom(z=>Math.min(z+0.1,2))} style={{background:"#f1f5f9",border:"1px solid #e5e7eb",borderRadius:6,width:28,height:28,cursor:"pointer",fontSize:16,fontWeight:700}}>+</button>
+          <span style={{fontSize:11,color:"#6b7280",minWidth:32,textAlign:"center"}}>{Math.round(zoom*100)}%</span>
+          <button onClick={()=>setZoom(z=>Math.max(z-0.1,0.3))} style={{background:"#f1f5f9",border:"1px solid #e5e7eb",borderRadius:6,width:28,height:28,cursor:"pointer",fontSize:16,fontWeight:700}}>-</button>
+        </div>
       </div>
 
 <div style={{flex:1,position:"relative",background:"#f1f5f9",backgroundImage:"radial-gradient(#cbd5e1 1px, transparent 1px)",backgroundSize:"24px 24px",cursor:tool==="link"?"crosshair":tool==="delete"?"not-allowed":"default",overflow:"hidden"}}
@@ -1984,6 +1992,7 @@ export default function GUI({onCommand, connected}) {
     {id:"l2",from:"pc2",to:"sw1"},
     {id:"l3",from:"sw1",to:"rt1"},
   ]);
+  const [zoom,setZoom] = useState(1);
   const [devices,setDevices] = useState([
     {id:"sw1",type:"switch",name:"Switch1",model:"Cisco 2960-24TT",x:300,y:200},
     {id:"rt1",type:"router",name:"Router1",model:"Cisco 2911",x:520,y:180},
